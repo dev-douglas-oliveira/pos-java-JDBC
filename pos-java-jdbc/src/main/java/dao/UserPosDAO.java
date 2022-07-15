@@ -20,7 +20,7 @@ public class UserPosDAO {
 
 	public void salvar(Userposjava userposjava) {
 		String sql = "INSERT INTO userposjava (nome, email) values (?,?)"; // valores com interrogação para
-																					// resgatar do obejto
+																			// resgatar do obejto
 		try {
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, userposjava.getNome());
@@ -101,4 +101,25 @@ public class UserPosDAO {
 		}
 
 	}
+
+	public void deletar(Long id) {
+
+		try {
+
+			String sql = "delete from userposjava where id = " + id;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.execute();
+			connection.commit();
+
+		} catch (Exception e) {
+			try {
+
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
+
 }
